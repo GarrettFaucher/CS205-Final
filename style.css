@@ -24,10 +24,5 @@ ul {
 }
 
 .rightHand{
-    height = 200px;
-    width = 300px;
-    align = "right";
-    right: 0px;
-    margin-left: auto;
-    margin-right: auto;
+    float: right;
 }
