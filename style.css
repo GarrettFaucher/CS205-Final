@@ -22,3 +22,9 @@ nav {
 ul {
     text-align: center;
 }
+
+.rightHand{
+    height = "42";
+    width ="42";
+    align = "right";
+}
