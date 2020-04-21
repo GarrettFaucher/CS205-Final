@@ -32,3 +32,7 @@ ul {
 .module {
     cursor: url("cursor.jpg"), auto;
 }
+
+.rightside{
+    float: right;
+}
