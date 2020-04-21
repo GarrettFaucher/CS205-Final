@@ -25,4 +25,5 @@ ul {
 
 .rightHand{
     float: right;
+    position: absolute;
 }
