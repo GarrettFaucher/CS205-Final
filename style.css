@@ -24,8 +24,8 @@ ul {
 }
 
 .rightHand{
-    height = "42";
-    width ="42";
+    height = 200px;
+    width = 300px;
     align = "right";
     margin-left: auto;
     margin-right: auto;
