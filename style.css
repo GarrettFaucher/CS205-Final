@@ -27,4 +27,6 @@ ul {
     height = "42";
     width ="42";
     align = "right";
+    margin-left: auto;
+    margin-right: auto;
 }
