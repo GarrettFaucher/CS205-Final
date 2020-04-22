@@ -8,12 +8,13 @@
         <title>Mars Weather</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <?PHP
-            echo shell_exec("python genplots.py");
-        ?>
+        <script type="text/javascript" src="automation.js"></script>
     </head>
 
-    <div style="background-image: url('background.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <div style="background-image: url('background.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;">
 
     <h1>Mars Weather</h1>
 
@@ -42,13 +43,6 @@
             </figure>
         </article>
 
-        <article id="forecast">
-            <h2> Forecast Plots </h2>
-            <figure class="img-right roundedCornerSmall small">
-                <img class="roundedCornerSmall" alt="Forecast Plots" src="">
-                <figcaption> This is the Forecast.</figcaption>
-            </figure>
-        </article>
 
         <h3>About the team</h3>
         <p> - Team information</p>

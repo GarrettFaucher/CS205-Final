@@ -1,6 +1,6 @@
 body {
     text-align: left;
-    background-color: sandybrown;
+    background-color: black;
 }
 
 h1 {
@@ -19,14 +19,7 @@ p {
   font-family: "Times New Roman", Times, serif;
   font-size: 15px;
   text-align: left;
-}
-
-nav {
-    text-align: center;
-}
-
-ul {
-    text-align: left;
+  color: black;
 }
 
 .module {
