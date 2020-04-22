@@ -63,10 +63,16 @@ def gather_data(choice):
     join_line_data.to_csv(r'line.csv', index = False)
     join_rose_data.to_csv(r'rose.csv', index = False)
 
+    # Store current season for website purposes
+    season = str(nasa_data[str(line_time[0])]['Season'])
+    seasonFile = open("season.txt", "w")
+    seasonFile.write(season[0].upper() + season[1:])
+    seasonFile.close()
+
     # Store todays date for website purposes
-    d = datetime.datetime.today()
+    date = datetime.datetime.today()
     timeFile = open("time.txt", "w")
-    timeFile.write(str(d)[0:10] + " at " + str(d)[11:16])
+    timeFile.write(str(date)[0:10] + " at " + str(date)[11:16])
     timeFile.close()
 
     if choice == True:
