@@ -7,14 +7,11 @@ from matplotlib.ticker import PercentFormatter
 from matplotlib.patches import Patch
 import random
 import pandas as pd
-import requests
-import json
+from make_data import *
 
-# Linearly takes x on [a,b] to [c,d]
-def linearmap(ab, cd, x):
-    a,b = ab[0],ab[1]
-    c,d = cd[0],cd[1]
-    return ((d-c)*x +(b*c - d*a))/(b - a)
+
+BACKGROUND_COLOR = (.68,.45,.33, .5)
+ROSE_CMAP = 'cividis'
 
 # Functional form that we attempt to forecast temp and pressure with
 def fitfunc1(x, a0, a1, a2, a3, b0, b1, b2):
@@ -23,82 +20,6 @@ def fitfunc1(x, a0, a1, a2, a3, b0, b1, b2):
 # Functional form that we attempt to forecast wind speed with
 def fitfunc2(x, a0, a1, a2, a3):
     return a0 + a1*x + a2*x**2 + a3*x**3
-
-# Gathering data from NASA Insight weather API
-# Pass value of True for line graph data; False for windrose data
-def gather_data(choice):
-    api_key = "AkPFZ2oNwdefoiJ9R94G6JglHEj79MrqLPWBihVf"
-    nasa_data = requests.get("https://api.nasa.gov/insight_weather/?api_key=" + api_key + "&feedtype=json&ver=1.0").json()
-    sols = nasa_data["sol_keys"]
-
-    # Data for line charts
-    line_time = []
-    line_temp = []
-    line_pressure = []
-    line_windspeed = []
-
-    # Data for windrose chart
-    rose_sol = []
-    rose_solHour = []
-    rose_windcount = []
-    rose_winddirection = []
-
-    # Loop through each sol to gather data for said sol
-    for i in range(len(nasa_data["sol_keys"])):
-        line_time.append(int(nasa_data["sol_keys"][i]))
-        line_temp.append(float(nasa_data[str(line_time[i])]['AT']['av']))
-        line_pressure.append(float(nasa_data[str(line_time[i])]['PRE']['av']))
-        line_windspeed.append(float(nasa_data[str(line_time[i])]['HWS']['av']))
-        # Loop through hourly data of sol for windrose data
-        for j in range(len(nasa_data[str(line_time[i])]['WD'])-1):
-            tempHours = list(nasa_data[str(line_time[i])]['WD'].keys()) # Gathers keys of hours from sol to use later for access
-            rose_sol.append(int(nasa_data["sol_keys"][i]))
-            rose_solHour.append(tempHours[j])
-            rose_windcount.append(int(nasa_data[str(line_time[i])]['WD'][tempHours[j]]['ct']))
-            rose_winddirection.append(int(nasa_data[str(line_time[i])]['WD'][tempHours[j]]['compass_degrees']))
-
-    line_data = pd.DataFrame(data={'line_time':line_time,
-                                  'line_temp':line_temp,
-                                  'line_pressure':line_pressure,
-                                  'line_windspeed':line_windspeed})
-    rose_data = pd.DataFrame(data={'rose_sol':rose_sol,
-                                  'rose_solHour':rose_solHour,
-                                  'rose_windcount':rose_windcount,
-                                  'rose_winddirection':rose_winddirection})
-
-    if choice == True:
-        return line_data
-    else:
-        return rose_data
-
-# Generating temporary placeholder data; to be replaced!
-def placeholder_data():
-    time = np.linspace(5, 25, 200)
-    temp = 200. + 30.*np.sin(time) + np.random.normal(0, .8, 200) + 0.04*time
-    pressure = .015 + 0.01*np.sin(time + 1.5) + np.random.normal(0, .0008, 200) + 0.0004*time
-    windspeed = np.random.normal(0, 1.6, len(time))
-    for i in range(np.random.randint(2,6)):
-        windspeed += random.randrange(3, 50)*np.exp(-(time - random.randrange(0, 20))**2/4.)
-
-    winddirection = np.zeros_like(time)
-    d = 0.
-    for i in range(0, 200):
-        winddirection[i] += d
-        d += np.random.normal(0, 1.5)
-
-    max_dir = np.max(winddirection) # a
-    min_dir = np.min(winddirection) # b
-    max_angle = 360.
-    min_angle = 0.
-
-    winddirection = linearmap([min_dir,max_dir],[0., 360], winddirection)
-
-    data = pd.DataFrame(data={'time':time,
-                              'temp':temp,
-                              'pressure':pressure,
-                              'windspeed':windspeed,
-                              'winddirection':winddirection})
-    return data
 
 # Generates the plot of temp/pressure/windspeed against time
 def stack_plot(data, forecast=False, depth=.3, save=False):
@@ -172,7 +93,7 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
             ax[n].set_ylim(min_yax, max_yax)
 
         # Setting background color
-        ax[n].patch.set_facecolor('b')
+        ax[n].patch.set_facecolor('k')
         ax[n].patch.set_alpha(.2)
 
 
@@ -213,10 +134,11 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
 
 
     fig.align_ylabels()
+    fig.patch.set_alpha(0.)
 
     # Either save or display the figure
     if save:
-        plt.savefig("stackplot.jpeg", format='jpeg')
+        plt.savefig("stackplot.jpeg", format='jpeg', facecolor=fig.get_facecolor())
     else:
         plt.show()
 
@@ -240,7 +162,7 @@ def windrose(data, save=False):
 
     nspeedbins = 4
     speedbins = np.linspace(0, max(wspeed), nspeedbins+1)
-    cmap = plt.cm.get_cmap('plasma')
+    cmap = plt.cm.get_cmap(ROSE_CMAP)
 
     # Iterate backwards through speedbins
     for n in np.flip(range(1, nspeedbins+1)):
@@ -256,12 +178,17 @@ def windrose(data, save=False):
 
     # Setting tick properties
     ax.set_xticks(dirbins)
-    ax.set_xticklabels(["E", "ENE", "NE", "NNE", "N", "NNW", "NW", "WNW", "W",
-                   "WSW", "SW", "SSW", "S", "ESE", "SE", "ESE"])
+    dirticks = ["E", "ENE", "NE", "NNE", "N", "NNW", "NW", "WNW", 
+                "W", "WSW", "SW", "SSW", "S", "ESE", "SE", "ESE"]
+    ax.set_xticklabels(dirticks, fontsize=20)
+    ax.tick_params(pad=12)
+
     ax.yaxis.set_major_formatter(PercentFormatter(decimals=0))
+    ax.set_yticks(ax.get_yticks()[::2])
     for tick in ax.get_yticklabels():
         tick.set_ha('left')
         tick.set_color('white')
+        tick.set_fontsize(15)
     ax.set_ylim(0, ax.get_ylim()[1]*1.1)
     ax.set_rlabel_position(0)
 
@@ -269,16 +196,23 @@ def windrose(data, save=False):
     ax.patch.set_facecolor('k')
     ax.patch.set_alpha(.8)
 
+    fig.patch.set_alpha(0.)
+
+
     legend_elements = []
     for n in np.flip(range(1, nspeedbins+1)):
         legend_elements.append(Patch(facecolor=cmap((n-1)/(nspeedbins-1)),
                                edgecolor='k',
                                label='<{:.1f} mph'.format(speedbins[n])))
-    plt.legend(handles=legend_elements)
+    plt.legend(handles=legend_elements, 
+               bbox_to_anchor=(1,1), 
+               bbox_transform=plt.gcf().transFigure,
+               fontsize=18,
+               frameon=False)
 
     # Either save or display the figure
     if save:
-        plt.savefig("windrose.jpeg", format='jpeg')
+        plt.savefig("windrose.jpeg", format='jpeg', facecolor=fig.get_facecolor())
     else:
         plt.show()
 
@@ -286,6 +220,11 @@ def windrose(data, save=False):
 
 
 
-data = placeholder_data()
-stack_plot(data, forecast=True, depth=.6, save=True)
-windrose(data, save=True)
+
+
+if __name__=="__main__":
+    data = placeholder_data()
+    stack_plot(data, forecast=True, depth=.6, save=True)
+    windrose(data, save=True)
+
+

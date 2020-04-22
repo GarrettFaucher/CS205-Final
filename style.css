@@ -1,6 +1,6 @@
 body {
     text-align: left;
-    background-color: black;
+    background-color: sandybrown;
 }
 
 h1 {
@@ -19,9 +19,21 @@ p {
   font-family: "Times New Roman", Times, serif;
   font-size: 15px;
   text-align: left;
-  color: black;
+  text-color: orangeRed; /*sandyBrown, sienna,  */
+}
+
+nav {
+    text-align: center;
+}
+
+ul {
+    text-align: left;
 }
 
 .module {
     cursor: url("cursor.jpg"), auto;
+}
+
+.rightside{
+    float: right;
 }
