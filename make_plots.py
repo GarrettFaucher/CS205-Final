@@ -145,7 +145,11 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
     plt.close()
 
 # Make wind rose plot
-def windrose(data, save=False):
+def windrose(data, num_days=None, save=False):
+    if num_days is not None:
+        today = max(data['sol'])
+        data = data[data['sol'] > today - num_days]
+
     fig, ax = plt.subplots(nrows=1, ncols=1,
                            figsize=(10,10),
                            subplot_kw=dict(projection='polar'))
@@ -196,15 +200,17 @@ def windrose(data, save=False):
     # Background color
     ax.patch.set_facecolor('k')
     ax.patch.set_alpha(.8)
-
     fig.patch.set_alpha(0.)
 
 
+    # Making legend elements
     legend_elements = []
     for n in np.flip(range(1, ncountbins+1)):
         legend_elements.append(Patch(facecolor=cmap((n-1)/(ncountbins-1)),
                                edgecolor='k',
-                               label=str(int(np.ceil(countbins[n]))) + ' counts')) #'<{:.1f} counts'.format(countbins[n])))
+                               label=str(int(np.ceil(countbins[n]))) + ' counts')) 
+
+    # Making legend
     plt.legend(handles=legend_elements, 
                bbox_to_anchor=(1,1), 
                bbox_transform=plt.gcf().transFigure,
@@ -224,8 +230,10 @@ def windrose(data, save=False):
 
 
 if __name__=="__main__":
-    data = placeholder_data()
-    stack_plot(data, forecast=True, depth=.6, save=True)
-    windrose(data, save=True)
+    stack_data = gather_data(True)
+    rose_data = gather_data(False)
+
+    stack_plot(stack_data, forecast=False, depth=.6, save=True)
+    windrose(rose_data, num_days=3, save=True)
 
 
