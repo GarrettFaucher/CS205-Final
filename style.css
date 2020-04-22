@@ -22,6 +22,14 @@ p {
   text-color: orangeRed; /*sandyBrown, sienna,  */
 }
 
+p1{
+    display: inline-block;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    text-align: left;
+    text-color: orangeRed; /*sandyBrown, sienna,  */
+}
+
 nav {
     text-align: center;
 }
@@ -36,4 +44,5 @@ ul {
 
 .rightside{
     float: right;
+    vertical-align: left;
 }
