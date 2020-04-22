@@ -15,7 +15,6 @@ def linearmap(ab, cd, x):
 def gather_data(choice):
     api_key = "AkPFZ2oNwdefoiJ9R94G6JglHEj79MrqLPWBihVf"
     nasa_data = requests.get("https://api.nasa.gov/insight_weather/?api_key=" + api_key + "&feedtype=json&ver=1.0").json()
-    print(nasa_data)
     sols = nasa_data["sol_keys"]
 
     # Data for line charts
@@ -44,19 +43,28 @@ def gather_data(choice):
             rose_windcount.append(int(nasa_data[str(line_time[i])]['WD'][tempHours[j]]['ct']))
             rose_winddirection.append(int(nasa_data[str(line_time[i])]['WD'][tempHours[j]]['compass_degrees']))
 
-    line_data = pd.DataFrame(data={'time':line_time,
+    new_line_data = pd.DataFrame(data={'time':line_time,
                                   'temp':line_temp,
                                   'pressure':line_pressure,
                                   'windspeed':line_windspeed})
-    rose_data = pd.DataFrame(data={'sol':rose_sol,
+    new_rose_data = pd.DataFrame(data={'sol':rose_sol,
                                   'solHour':rose_solHour,
                                   'windcount':rose_windcount,
                                   'winddirection':rose_winddirection})
 
+    old_line_data = pd.read_csv('line.csv').round(3)
+    old_rose_data = pd.read_csv('rose.csv').round(3)
+
+    join_line_data = pd.concat([new_line_data, old_line_data]).drop_duplicates().round(3).sort_values(by=['time']).reset_index(drop=True)
+    join_rose_data = pd.concat([new_rose_data, old_rose_data]).drop_duplicates().round(3).sort_values(by=['sol']).reset_index(drop=True)
+
+    join_line_data.to_csv(r'line.csv', index = False)
+    join_rose_data.to_csv(r'rose.csv', index = False)
+
     if choice == True:
-        return line_data
+        return join_line_data
     else:
-        return rose_data
+        return join_rose_data
 
 
 # Generating temporary placeholder data; to be replaced!
@@ -87,4 +95,3 @@ def placeholder_data():
                               'windspeed':windspeed,
                               'winddirection':winddirection})
     return data
-
