@@ -3,6 +3,7 @@ import random
 import pandas as pd
 import requests
 import json
+import datetime
 
 # Linearly takes x on [a,b] to [c,d]
 def linearmap(ab, cd, x):
@@ -74,6 +75,12 @@ def gather_data(choice):
     timeFile = open("time.txt", "w")
     timeFile.write(str(date)[0:10] + " at " + str(date)[11:16])
     timeFile.close()
+
+    # Store latest sol for website purposes
+    sol = str(str(line_time[6]))
+    solFile = open("sol.txt", "w")
+    solFile.write(sol)
+    solFile.close()
 
     if choice == True:
         return join_line_data
