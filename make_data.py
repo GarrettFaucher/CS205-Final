@@ -30,7 +30,7 @@ def gather_data(choice):
     rose_winddirection = []
 
     # Loop through each sol to gather data for said sol
-    for i in range(len(nasa_data["sol_keys"])-1):
+    for i in range(len(nasa_data["sol_keys"])):
         line_time.append(int(nasa_data["sol_keys"][i]))
         line_temp.append(float(nasa_data[str(line_time[i])]['AT']['av']))
         line_pressure.append(float(nasa_data[str(line_time[i])]['PRE']['av']))
@@ -39,25 +39,27 @@ def gather_data(choice):
         for j in range(len(nasa_data[str(line_time[i])]['WD'])-1):
             tempHours = list(nasa_data[str(line_time[i])]['WD'].keys()) # Gathers keys of hours from sol to use later for access
             rose_sol.append(int(nasa_data["sol_keys"][i]))
-            rose_solHour.append(tempHours[j])
+            rose_solHour.append(int(tempHours[j]))
             rose_windcount.append(int(nasa_data[str(line_time[i])]['WD'][tempHours[j]]['ct']))
             rose_winddirection.append(int(nasa_data[str(line_time[i])]['WD'][tempHours[j]]['compass_degrees']))
 
-    new_line_data = pd.DataFrame(data={'time':line_time,
-                                  'temp':line_temp,
-                                  'pressure':line_pressure,
-                                  'windspeed':line_windspeed})
-    new_rose_data = pd.DataFrame(data={'sol':rose_sol,
-                                  'solHour':rose_solHour,
-                                  'windcount':rose_windcount,
-                                  'winddirection':rose_winddirection})
+    new_line_data = pd.DataFrame(data={'time':      line_time,
+                                       'temp':      line_temp,
+                                       'pressure':  line_pressure,
+                                       'windspeed': line_windspeed})
+    new_rose_data = pd.DataFrame(data={'sol':       rose_sol,
+                                       'solHour':   rose_solHour,
+                                       'windcount': rose_windcount,
+                                       'winddirection':rose_winddirection})
 
     old_line_data = pd.read_csv('line.csv').round(3)
     old_rose_data = pd.read_csv('rose.csv').round(3)
 
+    # Sorting data and dropping dupes for usage
     join_line_data = pd.concat([new_line_data, old_line_data]).drop_duplicates().round(3).sort_values(by=['time']).reset_index(drop=True)
-    join_rose_data = pd.concat([new_rose_data, old_rose_data]).drop_duplicates().round(3).sort_values(by=['sol']).reset_index(drop=True)
+    join_rose_data = pd.concat([new_rose_data, old_rose_data]).sort_values(by=['sol', 'solHour']).reset_index(drop=True).drop_duplicates(subset=['sol','solHour']).reset_index(drop=True)
 
+    # Storing as csv for plot generation and historical data
     join_line_data.to_csv(r'line.csv', index = False)
     join_rose_data.to_csv(r'rose.csv', index = False)
 
