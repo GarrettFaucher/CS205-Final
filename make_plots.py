@@ -7,7 +7,7 @@ from matplotlib.ticker import PercentFormatter
 from matplotlib.patches import Patch
 import random
 import pandas as pd
-from make_data import linearmap
+from make_data import *
 
 
 BACKGROUND_COLOR = (.68,.45,.33, .5)
@@ -138,7 +138,7 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
 
     # Either save or display the figure
     if save:
-        plt.savefig("stackplot.jpeg", format='jpeg', transparent='True')
+        plt.savefig("stackplot.jpeg", format='jpeg', facecolor=fig.get_facecolor())
     else:
         plt.show()
 
@@ -212,12 +212,19 @@ def windrose(data, save=False):
 
     # Either save or display the figure
     if save:
-        plt.savefig("windrose.jpeg", format='jpeg')
+        plt.savefig("windrose.jpeg", format='jpeg', facecolor=fig.get_facecolor())
     else:
         plt.show()
 
     plt.close()
 
 
+
+
+
+if __name__=="__main__":
+    data = placeholder_data()
+    stack_plot(data, forecast=True, depth=.6, save=True)
+    windrose(data, save=True)
 
 
