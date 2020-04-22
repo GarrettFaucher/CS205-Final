@@ -63,6 +63,12 @@ def gather_data(choice):
     join_line_data.to_csv(r'line.csv', index = False)
     join_rose_data.to_csv(r'rose.csv', index = False)
 
+    # Store todays date for website purposes
+    d = datetime.datetime.today()
+    timeFile = open("time.txt", "w")
+    timeFile.write(str(d)[0:10] + " at " + str(d)[11:16])
+    timeFile.close()
+
     if choice == True:
         return join_line_data
     else:
