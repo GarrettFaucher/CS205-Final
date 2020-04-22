@@ -73,7 +73,7 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
         ax[2].axvline(x, **tickline_kwargs)
 
     s = .2 # Scale to set margin between data points and borders of graphs
-    for col in data.columns[1:-1]:
+    for col in data.columns[1:]:
         n = data.columns.get_loc(col) - 1
         min_col = min(data[col])
         max_col = max(data[col])
@@ -152,34 +152,35 @@ def windrose(data, save=False):
 
     # Loading data (and converting winddirection to radians)
     wdir = np.pi/180.*data['winddirection']
-    wspeed = data['windspeed']
+    wcount = data['windcount']
 
     # Setting bin parameters
-    N = len(wspeed)
-    ndirbins = 16
+    N = len(wcount)
+    ndirbins = 8
     width = 2*np.pi/ndirbins
     dirbins = np.arange(0, 2*np.pi, width)
 
-    nspeedbins = 4
-    speedbins = np.linspace(0, max(wspeed), nspeedbins+1)
+    ncountbins = 4
+    countbins = np.linspace(0, max(wcount), ncountbins+1)
     cmap = plt.cm.get_cmap(ROSE_CMAP)
 
-    # Iterate backwards through speedbins
-    for n in np.flip(range(1, nspeedbins+1)):
-        speed = speedbins[n]
+    # Iterate backwards through countbins
+    for n in np.flip(range(1, ncountbins+1)):
+        count = countbins[n]
 
         # Binning data
-        counts, bins = np.histogram(wdir[wspeed < speed], bins=dirbins)
+        counts, bins = np.histogram(wdir[wcount < count], bins=dirbins)
         radii = 100.*counts/N
 
         # Plotting data
-        ax.bar(bins[:-1], radii, align='edge', color=cmap((n-1)/(nspeedbins-1)), width=width)
+        ax.bar(bins[:-1], radii, align='edge', color=cmap((n-1)/(ncountbins-1)), width=width)
 
 
     # Setting tick properties
     ax.set_xticks(dirbins)
     dirticks = ["E", "ENE", "NE", "NNE", "N", "NNW", "NW", "WNW", 
                 "W", "WSW", "SW", "SSW", "S", "ESE", "SE", "ESE"]
+    dirticks = dirticks[::2]
     ax.set_xticklabels(dirticks, fontsize=20)
     ax.tick_params(pad=12)
 
@@ -200,10 +201,10 @@ def windrose(data, save=False):
 
 
     legend_elements = []
-    for n in np.flip(range(1, nspeedbins+1)):
-        legend_elements.append(Patch(facecolor=cmap((n-1)/(nspeedbins-1)),
+    for n in np.flip(range(1, ncountbins+1)):
+        legend_elements.append(Patch(facecolor=cmap((n-1)/(ncountbins-1)),
                                edgecolor='k',
-                               label='<{:.1f} mph'.format(speedbins[n])))
+                               label=str(int(np.ceil(countbins[n]))) + ' counts')) #'<{:.1f} counts'.format(countbins[n])))
     plt.legend(handles=legend_elements, 
                bbox_to_anchor=(1,1), 
                bbox_transform=plt.gcf().transFigure,

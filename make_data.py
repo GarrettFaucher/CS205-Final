@@ -68,30 +68,48 @@ def gather_data(choice):
 
 
 # Generating temporary placeholder data; to be replaced!
-def placeholder_data():
-    time = np.linspace(5, 25, 200)
-    temp = 200. + 30.*np.sin(time) + np.random.normal(0, .8, 200) + 0.04*time
-    pressure = .015 + 0.01*np.sin(time + 1.5) + np.random.normal(0, .0008, 200) + 0.0004*time
-    windspeed = np.random.normal(0, 1.6, len(time))
-    for i in range(np.random.randint(2,6)):
-        windspeed += random.randrange(3, 50)*np.exp(-(time - random.randrange(0, 20))**2/4.)
+def placeholder_data(choice):
+    if choice:
+        time = np.linspace(5, 25, 200)
+        temp = 200. + 30.*np.sin(time) + np.random.normal(0, .8, 200) + 0.04*time
+        pressure = .015 + 0.01*np.sin(time + 1.5) + np.random.normal(0, .0008, 200) + 0.0004*time
+        windspeed = np.random.normal(0, 1.6, len(time))
+        for i in range(np.random.randint(2,6)):
+            windspeed += random.randrange(3, 50)*np.exp(-(time - random.randrange(0, 20))**2/4.)
+        data = pd.Dataframe(data={'time':time,
+                                  'temp':temp,
+                                  'pressure':pressure,
+                                  'windspeed':windspeed})
+        return data
+    else:
 
-    winddirection = np.zeros_like(time)
-    d = 0.
-    for i in range(0, 200):
-        winddirection[i] += d
-        d += np.random.normal(0, 1.5)
+        n_sol = 20
+        n_hour = 23
 
-    max_dir = np.max(winddirection) # a
-    min_dir = np.min(winddirection) # b
-    max_angle = 360.
-    min_angle = 0.
+        winddirection = np.zeros(n_sol*n_hour)
+        d = 0.
+        for i in range(0, len(winddirection)):
+            winddirection[i] += d
+            d += np.random.normal(0, 1.5)
 
-    winddirection = linearmap([min_dir,max_dir],[0., 360], winddirection)
+        sol = np.zeros_like(winddirection)
+        solHour = np.zeros_like(winddirection)
+        windcount = np.zeros_like(winddirection)
+        for i in range(n_sol):
+            sol[i*n_hour:(i+1)*n_hour] = i*np.ones(n_hour)
+            solHour[i*n_hour:(i+1)*n_hour] = np.arange(0, n_hour)
+            windcount[i*n_hour:(i+1)*n_hour] = np.random.randint(0,5000,n_hour)
 
-    data = pd.DataFrame(data={'time':time,
-                              'temp':temp,
-                              'pressure':pressure,
-                              'windspeed':windspeed,
-                              'winddirection':winddirection})
-    return data
+        max_dir = np.max(winddirection)
+        min_dir = np.min(winddirection)
+        max_angle = 360.
+        min_angle = 0.
+
+        winddirection = linearmap([min_dir,max_dir],[0., 360], winddirection)
+
+        data = pd.DataFrame(data={'sol':sol,
+                                  'solHour':solHour,
+                                  'windcount':windcount,
+                                  'winddirection':winddirection})
+
+        return data
