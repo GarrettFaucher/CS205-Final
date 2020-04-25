@@ -34,9 +34,9 @@ p1{
 
 
 .module {
-    /**/cursor: url("cursor.jpg"), auto;
+    /* cursor: url("cursor.jpg"), auto; */
     cursor: crosshair;
-    /**/cursor: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngguru.com%2Ffree-transparent-background-png-clipart-vyvxv&psig=AOvVaw3Dsfmu6D5CVpOxQ-X7OLTj&ust=1587928724370000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjbydGlhOkCFQAAAAAdAAAAABAD"), auto;
+    /*cursor: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngguru.com%2Ffree-transparent-background-png-clipart-vyvxv&psig=AOvVaw3Dsfmu6D5CVpOxQ-X7OLTj&ust=1587928724370000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjbydGlhOkCFQAAAAAdAAAAABAD"), auto;*/
 }
 
 .rightside{
