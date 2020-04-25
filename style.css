@@ -17,6 +17,19 @@ h3 {
   font-family: "Times New Roman", Times, serif;
 }
 
+h2 {
+  color: black;
+    -webkit-text-stroke: 1px white;
+    text-align: center;
+  font-family: "Times New Roman", Times, serif;
+}
+figcaption {
+  color: black;
+    -webkit-text-stroke: 1px white;
+    text-align: center;
+  font-family: "Times New Roman", Times, serif;
+}
+
 p {
   font-family: "Times New Roman", Times, serif;
   font-size: 20px;
