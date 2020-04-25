@@ -4,46 +4,46 @@ body {
 }
 
 h1 {
-  color: black;
-  -webkit-text-stroke: 1px white;
+  color: white;
+  -webkit-text-stroke: 1px black;
   text-align: center;
-  font-family: "Times New Roman", Times, serif;
+  font-family: sans-serif, Arial;
 }
 
 h3 {
-  color: black;
-    -webkit-text-stroke: 1px white;
+  color: white;
+    -webkit-text-stroke: 1px black;
     text-align: center;
-  font-family: "Times New Roman", Times, serif;
+  font-family: sans-serif, Arial;
 }
 
 h2 {
-  color: black;
-    -webkit-text-stroke: 1px white;
+  color: white;
+    -webkit-text-stroke: 1px black;
     text-align: center;
-  font-family: "Times New Roman", Times, serif;
+  font-family: sans-serif, Arial;
 }
 figcaption {
-  color: black;
-    -webkit-text-stroke: 1px white;
+  color: white;
+    -webkit-text-stroke: 1px black;
     text-align: center;
-  font-family: "Times New Roman", Times, serif;
+  font-family: sans-serif, Arial;
 }
 
 p {
-  font-family: "Times New Roman", Times, serif;
+  font-family: sans-serif, Arial;
   font-size: 20px;
   text-align: center;
-  text-color: black; /*sandyBrown, sienna,  */
-    -webkit-text-stroke: 1px white;}
+  text-color: white; /*sandyBrown, sienna,  */
+    -webkit-text-stroke: 1px black;}
 
 p1{
     display: inline-block;
-    font-family: "Times New Roman", Times, serif;
+    font-family: sans-serif, Arial;
     font-size: 20px;
     text-align: center;
-    text-color: black; /*sandyBrown, sienna,  */
-    -webkit-text-stroke: 1px white;}
+    text-color: white; /*sandyBrown, sienna,  */
+    -webkit-text-stroke: 1px black;}
 
 
 .cursorM {

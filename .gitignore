@@ -1,2 +1,5 @@
 pulldata.py
 testDfConcat.py
+__pycache__
+*.pyc
+*.swp
