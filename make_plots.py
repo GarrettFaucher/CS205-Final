@@ -1,5 +1,4 @@
 import numpy as np
-import scipy.optimize as spo
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import cm
@@ -8,18 +7,15 @@ from matplotlib.patches import Patch
 import random
 import pandas as pd
 from make_data import *
+from sklearn.linear_model import LinearRegression
 
 
-BACKGROUND_COLOR = (.68,.45,.33, .5)
 ROSE_CMAP = 'cividis'
 
-# Functional form that we attempt to forecast temp and pressure with
-def fitfunc1(x, a0, a1, a2, a3, b0, b1, b2):
-    return a0 + a1*x + a2*x**2 + a3*x**3 + b0*np.sin(x*b1 + b2)
-
-# Functional form that we attempt to forecast wind speed with
-def fitfunc2(x, a0, a1, a2, a3):
-    return a0 + a1*x + a2*x**2 + a3*x**3
+def fit(X,Y,y_fit):
+    model = LinearRegression()
+    model.fit(np.array(X).reshape(-1,1),Y)
+    return model.predict(np.array(y_fit).reshape(-1,1))
 
 # Generates the plot of temp/pressure/windspeed against time
 def stack_plot(data, forecast=False, depth=.3, save=False):
@@ -105,8 +101,9 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
         t = np.linspace(data['time'].iloc[-1], max_time, 100)
 
         # Do forecast on temp
-        temp_params,cov = spo.curve_fit(fitfunc1, data['time'], data['temp'])
-        temp_fit = fitfunc1(t, *temp_params)
+        temp_fit = fit(data['time'], data['temp'], t)
+        #temp_params,cov = spo.curve_fit(fitfunc1, data['time'], data['temp'])
+        #temp_fit = fit(t, *temp_params)
         scale = .1*max(data['temp'] - min(data['temp']))
         ax[0].fill_between(t, temp_fit - scale*(t[0] - t), temp_fit + scale*(t[0] - t),
                            facecolor='r',
@@ -114,8 +111,8 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
         ax[0].plot(t, temp_fit, 'r--')
 
         # Do forecast on pressure
-        pressure_params,cov = spo.curve_fit(fitfunc1, data['time'], data['pressure'])
-        pressure_fit = fitfunc1(t, *pressure_params)
+        #pressure_params,cov = spo.curve_fit(fitfunc1, data['time'], data['pressure'])
+        pressure_fit = fit(data['time'], data['pressure'], t)
         scale = .1*max(data['pressure'] - min(data['pressure']))
         ax[1].fill_between(t, pressure_fit - scale*(t[0] - t), pressure_fit + scale*(t[0] - t),
                            facecolor='r',
@@ -123,8 +120,8 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
         ax[1].plot(t, pressure_fit, 'r--')
 
         # Do forecast on pressure
-        speed_params,cov = spo.curve_fit(fitfunc2, data['time'][3*N//4:], data['windspeed'][3*N//4:])
-        speed_fit = fitfunc2(t, *speed_params)
+        #speed_params,cov = spo.curve_fit(fitfunc2, data['time'][3*N//4:], data['windspeed'][3*N//4:])
+        speed_fit = fit(data['time'], data['windspeed'], t)
         scale = .1*max(data['windspeed'] - min(data['windspeed']))
         ax[2].fill_between(t, speed_fit - scale*(t[0] - t), speed_fit + scale*(t[0] - t),
                            facecolor='r',
@@ -233,7 +230,7 @@ if __name__=="__main__":
     stack_data = gather_data(True)
     rose_data = gather_data(False)
 
-    stack_plot(stack_data, forecast=False, depth=.6, save=True)
+    stack_plot(stack_data, forecast=True, depth=.6, save=True)
     windrose(rose_data, num_days=3, save=True)
 
 
