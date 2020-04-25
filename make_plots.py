@@ -230,7 +230,7 @@ if __name__=="__main__":
     stack_data = gather_data(True)
     rose_data = gather_data(False)
 
-    stack_plot(stack_data, forecast=True, depth=.6, save=False)
-    windrose(rose_data, num_days=3, save=False)
+    stack_plot(stack_data, forecast=True, depth=.6, save=True)
+    windrose(rose_data, num_days=3, save=True)
 
 
