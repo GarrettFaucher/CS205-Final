@@ -28,10 +28,13 @@
             We are also utilizing this data to forecast future Mars' weather, by a day or so.</strong>
         </p1>
 
+        <h3><strong>Data Information </strong></h3>
+        <p><strong><?php include('data_info.txt'); ?></strong></p>
+
         <h2><strong>Last Updated:</strong></h2>
-        <p><strong>Current season: <?php include('data/season.txt'); ?></strong></p>
-        <p><strong>Sol: <?php include('data/sol.txt'); ?></strong></p>
-        <p><strong>Time: <?php include('data/time.txt'); ?></strong></p>
+        <p><strong>Current season: <?php include('season.txt'); ?></strong></p>
+        <p><strong>Sol: <?php include('sol.txt'); ?></strong></p>
+        <p><strong>Time: <?php include('time.txt'); ?></strong></p>
 
         <article id="wind">
             <h2><strong> Wind Rose Plots</strong></h2>
