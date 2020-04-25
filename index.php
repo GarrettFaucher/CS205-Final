@@ -11,7 +11,7 @@
         <script type="text/javascript" src="automation.js"></script>
     </head>
     <body>
-    <div style="background-image: url('background.jpg'); background-repeat: no-repeat; background-attachment:fixed; background-size: 100% 100%; cursor: url('cursor.jpg'), auto;">
+    <div style="background-image: url('background.jpg'); background-repeat: no-repeat; background-attachment:fixed; background-size: 100% 100%; cursor: url('cursor.jpg'), auto; padding-right: 200px; padding-left: 200px;">
 
         <h1><strong>Mars Weather</strong></h1>
 
