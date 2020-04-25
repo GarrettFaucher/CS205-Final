@@ -1,53 +1,61 @@
 body {
-    text-align: left;
-    background-color: sandybrown;
+    text-align: center;
+    background-color: black;
 }
 
 h1 {
   color: black;
-  text-align: left;
+  -webkit-text-stroke: 1px white;
+  text-align: center;
   font-family: "Times New Roman", Times, serif;
 }
 
 h3 {
   color: black;
-  text-align: left;
+    -webkit-text-stroke: 1px white;
+    text-align: center;
+  font-family: "Times New Roman", Times, serif;
+}
+
+h2 {
+  color: black;
+    -webkit-text-stroke: 1px white;
+    text-align: center;
+  font-family: "Times New Roman", Times, serif;
+}
+figcaption {
+  color: black;
+    -webkit-text-stroke: 1px white;
+    text-align: center;
   font-family: "Times New Roman", Times, serif;
 }
 
 p {
   font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
-  text-align: left;
-  text-color: orangeRed; /*sandyBrown, sienna,  */
-}
+  font-size: 20px;
+  text-align: center;
+  text-color: black; /*sandyBrown, sienna,  */
+    -webkit-text-stroke: 1px white;}
 
 p1{
     display: inline-block;
     font-family: "Times New Roman", Times, serif;
-    font-size: 15px;
-    text-align: left;
-    text-color: orangeRed; /*sandyBrown, sienna,  */
-}
-
-nav {
+    font-size: 20px;
     text-align: center;
-}
+    text-color: black; /*sandyBrown, sienna,  */
+    -webkit-text-stroke: 1px white;}
 
-ul {
-    text-align: left;
-}
 
-.module {
-    cursor: url("cursor.jpg"), auto;
+.cursorM {
+    /* cursor: url("cursor.jpg"), auto; */
+    cursor: crosshair;
+    /*cursor: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngguru.com%2Ffree-transparent-background-png-clipart-vyvxv&psig=AOvVaw3Dsfmu6D5CVpOxQ-X7OLTj&ust=1587928724370000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjbydGlhOkCFQAAAAAdAAAAABAD"), auto;*/
 }
 
 .rightside{
-    float: right;
-    vertical-align: left;
+    float: center;
+    vertical-align: center;
 }
-.plot{//
-    /**/;
+.plot{
     vertical-align: middle;
-
 }
