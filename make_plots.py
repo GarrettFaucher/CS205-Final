@@ -4,6 +4,7 @@ import pandas as pd
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from matplotlib import rcParams
 from matplotlib import cm
 from matplotlib.ticker import PercentFormatter
 from matplotlib.patches import Patch
@@ -31,6 +32,8 @@ def fit(X,Y,x_fit):
 def stack_plot(data, forecast=False, depth=.3, save=False):
     min_time = min(data['time'])
     max_time = max(data['time'])
+    rcParams['font.family'] = ['Arial','sans-serif']
+    
 
     # If we are attempting a forecast, extend the max time beyond the provided data
     if forecast:
@@ -63,7 +66,8 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
     ax[2].yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.2f}'))
 
     # Setting time ticks and labelling x-axis
-    x_ticks = [linearmap([0, 10],[min_time,max_time],i) for i in range(0,10)]
+    #x_ticks = [linearmap([0, 10],[min_time,max_time],i) for i in range(0,10)]
+    x_ticks = np.arange(min_time, max_time, 1)
     ax[2].set_xticks(x_ticks)
     ax[2].set_xlabel("Time (sol)", fontsize=16)
 
@@ -149,6 +153,7 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
 
 # Make wind rose plot
 def windrose(data, num_days=None, save=False):
+    rcParams['font.family'] = ['Arial','sans-serif']
     if num_days is not None:
         today = max(data['sol'])
         data = data[data['sol'] > today - num_days]
