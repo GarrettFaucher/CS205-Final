@@ -1,42 +1,37 @@
 body {
-    text-align: left;
-    background-color: sandybrown;
+    text-align: center;
+    background-color: black;
 }
 
 h1 {
   color: black;
-  text-align: left;
+  -webkit-text-stroke: 1px white;
+  text-align: center;
   font-family: "Times New Roman", Times, serif;
 }
 
 h3 {
   color: black;
-  text-align: left;
+    -webkit-text-stroke: 1px white;
+    text-align: center;
   font-family: "Times New Roman", Times, serif;
 }
 
 p {
   font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
-  text-align: left;
-  text-color: orangeRed; /*sandyBrown, sienna,  */
-}
+  font-size: 20px;
+  text-align: center;
+  text-color: black; /*sandyBrown, sienna,  */
+    -webkit-text-stroke: 1px white;}
 
 p1{
     display: inline-block;
     font-family: "Times New Roman", Times, serif;
-    font-size: 15px;
-    text-align: left;
-    text-color: orangeRed; /*sandyBrown, sienna,  */
-}
-
-nav {
+    font-size: 20px;
     text-align: center;
-}
+    text-color: black; /*sandyBrown, sienna,  */
+    -webkit-text-stroke: 1px white;}
 
-ul {
-    text-align: left;
-}
 
 .module {
     /**/cursor: url("cursor.jpg"), auto;
@@ -45,8 +40,8 @@ ul {
 }
 
 .rightside{
-    float: right;
-    vertical-align: left;
+    float: center;
+    vertical-align: center;
 }
 .plot{
     vertical-align: middle;
