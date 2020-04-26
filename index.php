@@ -22,7 +22,11 @@
     </figure>
 
         <h2><strong>Data Information</strong></h2>
-        <p><strong><?php include('data_info.txt'); ?></strong></p>
+        <p><strong>
+            Data for the Mars Weather website was gathered from NASA’s “InSight: Mars Weather Service API.”
+            The Insight rover takes continuous weather measurements of the Martian atmosphere in Elysium Planitia,
+            a large plain near Mars’s equator.
+        </strong></p>
 
         <h2><strong>Data Last Updated: <?php include('time.txt'); ?></strong></h2>
         <p><strong>Current Season On Mars: <?php include('season.txt'); ?></strong></p>
