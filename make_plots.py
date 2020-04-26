@@ -1,7 +1,7 @@
 import numpy as np
 
 import pandas as pd
-from crontab import Crontab
+from crontab import CronTab
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
