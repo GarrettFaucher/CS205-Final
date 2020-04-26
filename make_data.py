@@ -57,7 +57,7 @@ def gather_data(choice):
     old_rose_data = pd.read_csv('rose.csv').round(3)
 
     # Sorting data and dropping dupes for usage
-    join_line_data = pd.concat([new_line_data, old_line_data]).drop_duplicates().round(3).sort_values(by=['time']).reset_index(drop=True)
+    join_line_data = pd.concat([new_line_data, old_line_data]).drop_duplicates(subset=['time']).round(3).sort_values(by=['time']).reset_index(drop=True)
     join_rose_data = pd.concat([new_rose_data, old_rose_data]).sort_values(by=['sol', 'solHour']).reset_index(drop=True).drop_duplicates(subset=['sol','solHour']).reset_index(drop=True)
 
     # Storing as csv for plot generation and historical data
