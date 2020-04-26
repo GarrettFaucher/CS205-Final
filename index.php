@@ -36,13 +36,19 @@
         <article id="wind">
             <h2><strong> Wind Rose Plots</strong></h2>
             <figure class="plot">
-                <img class="roundedCornerSmall" width="800" height="800" alt="Wind Data" src="windrose.jpeg">
-                <figcaption> <strong>This is the Wind Rose data. The direction of the wind</strong></figcaption>
+                <img class="roundedCornerSmall" width="800" height="800" alt="Wind Data" src="windrose.png">
+                <figcaption> <strong>This is a wind rose, which contains information about the direction, frequency,
+                    and strength of wind over the last three Sols. The area in each radial histogram bin indicates
+                    the frequency of wind pointing in that direction, and the counts (indicated by the color) are a proxy
+                    for the strength of the wind when it was blowing that direction. 
+                </strong></figcaption>
             </figure>
             <h2> <strong>Temp/Pressure/Wind Plots</strong></h2>
             <figure class="plot">
-                <img class="roundedCornerSmall" height="800" width="1000" alt="Temperature Date" src="stackplot.jpeg">
-                <figcaption> <strong>This is the Temperature and Pressure data.</strong></figcaption>
+                <img class="roundedCornerSmall" height="800" width="1000" alt="Temperature Date" src="stackplot.png">
+                <figcaption> <strong>This is the average temperature, pressure, and wind speed over the past few weeks. The
+                    red line is our forecast. Samples are taken once per day.
+                </strong></figcaption>
             </figure>
         </article>
 
