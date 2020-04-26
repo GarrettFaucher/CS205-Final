@@ -8,6 +8,7 @@ from matplotlib import rcParams
 from matplotlib import cm
 from matplotlib.ticker import PercentFormatter
 from matplotlib.patches import Patch
+import matplotlib.patheffects as path_effects
 
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
@@ -50,26 +51,37 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
                        linestyle='-',
                        linewidth=2)
 
+    outline = [path_effects.Stroke(linewidth=1, foreground='black'),
+               path_effects.Normal()]
+
+    # kwargs to pass to text objects for the black outline
+    text_kwargs = dict(color='w',
+                       path_effects=outline)
+
     # Plotting temperature
     ax[0].plot(data['time'], data['temp'], **plot_kwargs)
-    ax[0].set_ylabel(r"Temperature ($^\circ$C)", fontsize=14)
+    ax[0].set_ylabel(r"Temperature ($^\circ$C)", fontsize=14, **text_kwargs)
     ax[0].yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.0f}'))
 
     # Plotting pressure
     ax[1].plot(data['time'], data['pressure'], **plot_kwargs)
-    ax[1].set_ylabel("Pressure (atm)", fontsize=14)
+    ax[1].set_ylabel("Pressure (atm)", fontsize=14, **text_kwargs)
     ax[1].yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.2f}'))
 
     # Plotting wind speed
     ax[2].plot(data['time'], data['windspeed'], **plot_kwargs)
-    ax[2].set_ylabel("Wind speed (mph)", fontsize=14)
+    ax[2].set_ylabel("Wind speed (mph)", fontsize=14, **text_kwargs)
     ax[2].yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.2f}'))
 
     # Setting time ticks and labelling x-axis
-    #x_ticks = [linearmap([0, 10],[min_time,max_time],i) for i in range(0,10)]
     x_ticks = np.arange(min_time, max_time, 1)
     ax[2].set_xticks(x_ticks)
-    ax[2].set_xlabel("Time (sol)", fontsize=16)
+
+    # Adding outline to xtick labels
+    for tick in ax[2].get_xticklabels():
+        tick.set_path_effects(outline)
+        tick.set_color('white')
+    ax[2].set_xlabel("Time (sol)", fontsize=16, labelpad=10, **text_kwargs)
 
     # kwargs to pass to grid lines
     tickline_kwargs = dict(color='k',
@@ -78,9 +90,8 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
                            alpha=.6)
     # Vertical grid lines
     for x in x_ticks:
-        ax[0].axvline(x, **tickline_kwargs)
-        ax[1].axvline(x, **tickline_kwargs)
-        ax[2].axvline(x, **tickline_kwargs)
+        for a in ax:
+            a.axvline(x, **tickline_kwargs)
 
     s = .2 # Scale to set margin between data points and borders of graphs
     for col in data.columns[1:]:
@@ -96,6 +107,9 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
         # Setting y-ticks for this ax
         y_ticks = [linearmap([0, 4],[min_yax,max_yax],i) for i in range(0,4)]
         ax[n].set_yticks(y_ticks)
+        for tick in ax[n].get_yticklabels():
+            tick.set_path_effects(outline)
+            tick.set_color('white')
 
         # Horizontal grid lines
         for y in y_ticks:
@@ -111,41 +125,25 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
     if forecast:
         # Setup
         N = len(data['time'])
-        fit_data = data[:][3*N//4:]
+
+        # Timescale over which we are doing a forecast
         t = np.linspace(data['time'].iloc[-len(data['time'])//6], max_time, 100)
 
-        # Do forecast on temp
-        temp_fit = fit(data['time'], data['temp'], t)
-        scale = .1*max(data['temp'] - min(data['temp']))
-        ax[0].fill_between(t, temp_fit - scale*(t[0] - t), temp_fit + scale*(t[0] - t),
-                           facecolor='r',
-                           alpha=.3)
-        ax[0].plot(t, temp_fit, 'r--')
-
-        # Do forecast on pressure
-        pressure_fit = fit(data['time'], data['pressure'], t)
-        scale = .1*max(data['pressure'] - min(data['pressure']))
-        ax[1].fill_between(t, pressure_fit - scale*(t[0] - t), pressure_fit + scale*(t[0] - t),
-                           facecolor='r',
-                           alpha=.3)
-        ax[1].plot(t, pressure_fit, 'r--')
-
-        # Do forecast on pressure
-        speed_fit = fit(data['time'], data['windspeed'], t)
-        scale = .1*max(data['windspeed'] - min(data['windspeed']))
-        ax[2].fill_between(t, speed_fit - scale*(t[0] - t), speed_fit + scale*(t[0] - t),
-                           facecolor='r',
-                           alpha=.3)
-        ax[2].plot(t, speed_fit, 'r--')
-
-
+        # For each variable, do a curve fit and plot uncertainty regions
+        for n,col in enumerate(data.columns[1:]):
+            fit_data = fit(data['time'], data[col], t)
+            scale = .1*max(data[col] - min(data[col]))
+            ax[n].fill_between(t, fit_data - scale*(t[0] - t), fit_data + scale*(t[0] - t),
+                               facecolor='r',
+                               alpha=.3)
+            ax[n].plot(t, fit_data, 'r--')
 
     fig.align_ylabels()
     fig.patch.set_alpha(0.)
 
     # Either save or display the figure
     if save:
-        plt.savefig("stackplot.jpeg", format='jpeg', facecolor=fig.get_facecolor())
+        plt.savefig("stackplot.png", format='png', facecolor=fig.get_facecolor())
     else:
         plt.show()
 
@@ -187,6 +185,12 @@ def windrose(data, num_days=None, save=False):
         # Plotting data
         ax.bar(bins[:-1], radii, align='edge', color=cmap((n-1)/(ncountbins-1)), width=width)
 
+    outline = [path_effects.Stroke(linewidth=1, foreground='black'),
+               path_effects.Normal()]
+
+    # kwargs to pass to text objects for the black outline
+    text_kwargs = dict(color='w',
+                       path_effects=outline)
 
     # Setting tick properties
     ax.set_xticks(dirbins)
@@ -195,6 +199,10 @@ def windrose(data, num_days=None, save=False):
     dirticks = dirticks[::2]
     ax.set_xticklabels(dirticks, fontsize=20)
     ax.tick_params(pad=12)
+    for tick in ax.get_xticklabels():
+        tick.set_path_effects(outline)
+        tick.set_color('white')
+
 
     ax.yaxis.set_major_formatter(PercentFormatter(decimals=0))
     ax.set_yticks(ax.get_yticks()[::2])
@@ -219,15 +227,20 @@ def windrose(data, num_days=None, save=False):
                                label=str(int(np.ceil(countbins[n]))) + ' counts')) 
 
     # Making legend
-    plt.legend(handles=legend_elements, 
+    leg = plt.legend(handles=legend_elements, 
                bbox_to_anchor=(1,1), 
                bbox_transform=plt.gcf().transFigure,
                fontsize=18,
                frameon=False)
 
+    for text in leg.get_texts():
+        text.set_path_effects(outline)
+        text.set_color('white')
+
+
     # Either save or display the figure
     if save:
-        plt.savefig("windrose.jpeg", format='jpeg', facecolor=fig.get_facecolor())
+        plt.savefig("windrose.png", format='png', facecolor=fig.get_facecolor())
     else:
         plt.show()
 
