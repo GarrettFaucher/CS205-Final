@@ -11,7 +11,7 @@
         <script type="text/javascript" src="automation.js"></script>
     </head>
     <body>
-    <div style="background-image: url('background.jpg'); background-repeat: no-repeat; background-attachment:fixed; background-size: 100% 100%; cursor: url('cursor.jpg'), auto;">
+    <div style="background-image: url('background.jpg'); background-repeat: no-repeat; background-attachment:fixed; background-size: 100% 100%; cursor: url('cursor.jpg'), auto; padding-right: 200px; padding-left: 200px;">
 
         <h1><strong>Mars Weather</strong></h1>
 
@@ -39,20 +39,26 @@
         <article id="wind">
             <h2><strong> Wind Rose Plots</strong></h2>
             <figure class="plot">
-                <img class="roundedCornerSmall" width="800" height="800" alt="Wind Data" src="windrose.jpeg">
-                <figcaption> <strong>This is the Wind Rose data. The direction of the wind</strong></figcaption>
+                <img class="roundedCornerSmall" width="800" height="800" alt="Wind Data" src="windrose.png">
+                <figcaption> <strong>This is a wind rose, which contains information about the direction, frequency,
+                    and strength of wind over the last three Sols. The area in each radial histogram bin indicates
+                    the frequency of wind pointing in that direction, and the counts (indicated by the color) are a proxy
+                    for the strength of the wind when it was blowing that direction. 
+                </strong></figcaption>
             </figure>
             <h2> <strong>Temp/Pressure/Wind Plots</strong></h2>
             <figure class="plot">
-                <img class="roundedCornerSmall" height="800" width="1000" alt="Temperature Date" src="stackplot.jpeg">
-                <figcaption> <strong>This is the Temperature and Pressure data.</strong></figcaption>
+                <img class="roundedCornerSmall" height="800" width="1000" alt="Temperature Date" src="stackplot.png">
+                <figcaption> <strong>This is the average temperature, pressure, and wind speed over the past few weeks. The
+                    red line is our forecast. Samples are taken once per day.
+                </strong></figcaption>
             </figure>
         </article>
 
 
 
         <h3><strong>About the team</strong></h3>
-        <p><strong>Garret Faucher, a Junior Computer Science Major and Astronomy Minor.</strong></p>
+        <p><strong>Garrett Faucher, a Junior Computer Science Major and Astronomy Minor. He likes to look at stars and bike.</strong></p>
         <p><strong>Eliot Heinrich, a senior physics and computer science major. He is a ballroom and swing dancer. </strong></p>
         <p><strong>Thomas Sheboy, a junior Computer Science major and Mathematics minor. He likes to play guitar.</strong></p>
         <p><strong>Stanhope Nwosu, a senior Computer Science major and Statistic minor.
