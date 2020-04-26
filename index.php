@@ -11,7 +11,7 @@
         <script type="text/javascript" src="automation.js"></script>
     </head>
     <body>
-    <div style="background-image: url('background.jpg'); background-repeat: no-repeat; background-attachment:fixed; background-size: 100% 100%; cursor: url('cursor.jpg'), auto;">
+    <div style="background-image: url('background.jpg'); background-repeat: no-repeat; background-attachment:fixed; background-size: 100% 100%; cursor: url('cursor.jpg'), auto; padding-right: 200px; padding-left: 200px;">
 
         <h1><strong>Mars Weather</strong></h1>
 
@@ -49,7 +49,7 @@
 
 
         <h3><strong>About the team</strong></h3>
-        <p><strong>Garret Faucher, a Junior Computer Science Major and Astronomy Minor.</strong></p>
+        <p><strong>Garrett Faucher, a Junior Computer Science Major and Astronomy Minor. He likes to look at stars and bike.</strong></p>
         <p><strong>Eliot Heinrich, a senior physics and computer science major. He is a ballroom and swing dancer. </strong></p>
         <p><strong>Thomas Sheboy, a junior Computer Science major and Mathematics minor. He likes to play guitar.</strong></p>
         <p><strong>Stanhope Nwosu, a senior Computer Science major and Statistic minor.
