@@ -28,7 +28,7 @@
             We are also utilizing this data to forecast future Mars' weather, by a day or so.</strong>
         </p1>
 
-        <h3><strong>Data Information </strong></h3>
+        <h2><strong>Data Information </strong></h2>
         <p><strong><?php include('data_info.txt'); ?></strong></p>
 
         <h2><strong>Last Updated:</strong></h2>
