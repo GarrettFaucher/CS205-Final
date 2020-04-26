@@ -1,2 +1,0 @@
-Data for the Mars Weather website was gathered from NASA’s “InSight: Mars Weather Service API.”
-The Insight rover takes continuous weather measurements of the Martian atmosphere in Elysium Planitia, a large plain near Mars’s equator.
