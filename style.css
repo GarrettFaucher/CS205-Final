@@ -8,6 +8,7 @@ h1 {
   -webkit-text-stroke: 1px black;
   text-align: center;
   font-family: sans-serif, Arial;
+    font-size: 40px;
 }
 
 h3 {
