@@ -8,7 +8,6 @@
         <title>Mars' Weather</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="automation.js"></script>
     </head>
     <body>
     <div style="background-image">
@@ -17,15 +16,15 @@
 
     <figure class="rightside">
     <img class="marsRo" alt="Mars Rover." width="712" height="406" src="insight.jpg">
-        <figcaption>The Insight Mars Rover</figcaption>
+        <figcaption>The Insight Mars Lander</figcaption>
     </figure>
 
         <h2>Data Information</h2>
         <p>
-            Data for the Mars Weather website was gathered from NASA’s “InSight: Mars Weather Service API.”
-            The Insight rover takes continuous weather measurements of the Martian atmosphere in Elysium Planitia,
-            a large plain near Mars’s equator. The API provides daily changes in weather in Elysium Planitia
-            and hourly changes of winddirection and wind sample count. Below are some metrics gathered based on the
+            Data for the Mars' Weather website was gathered from NASA’s “InSight: Mars' Weather Service API.”
+            The Insight Lander takes continuous weather measurements of the Martian atmosphere in Elysium Planitia,
+            a large plain near Mars’ equator. The API provides daily changes in weather in Elysium Planitia
+            and hourly changes of wind direction and wind sample count. Below are some metrics gathered based on the
             data collected from the API.
         </p>
 
@@ -51,7 +50,7 @@
             </figure>
             <h2> Temperature/Pressure/Wind Plots</h2>
             <figure class="plot">
-                <img class="roundedCornerSmall" height="800" width="1000" alt="Temperature Date" src="stackplot.png">
+                <img class="roundedCornerSmall" height="800" width="800" alt="Temperature Date" src="stackplot.png">
                 <figcaption>
                     This is the average temperature, pressure, and wind speed over the past few weeks. The
                     red line is our forecast. Samples are taken once per day.
