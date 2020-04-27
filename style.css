@@ -7,8 +7,8 @@ body {
     background-attachment:fixed;
     background-size: 100% 100%;
     cursor: url('cursor.jpg'), auto;
-    padding-right: 200px;
-    padding-left: 200px;
+    padding-right: 350px;
+    padding-left: 350px;
 }
 
 h1 {
@@ -52,18 +52,32 @@ p {
     font-weight: bold;
 }
 
-.grid-container {
+.grid-container1 {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   padding: 10px;
 }
 
-.grid-item {
+.grid-item1 {
+  background-color: rgba(255, 255, 255, .2);
+  border: 1px solid rgba(0, 0, 0, .2);
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.grid-item2 {
   background-color: rgba(255, 255, 255, 0);
   border: 1px solid rgba(0, 0, 0, 0);
   padding: 10px;
   font-size: 30px;
   text-align: center;
+}
+
+.grid-container2 {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
 }
 
 .cursorM {
