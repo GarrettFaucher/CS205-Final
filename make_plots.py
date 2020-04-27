@@ -1,7 +1,7 @@
 import numpy as np
 
 import pandas as pd
-from crontab import Crontab
+from crontab import CronTab
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -116,7 +116,7 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
 
         # Setting background color
         ax[n].patch.set_facecolor('k')
-        ax[n].patch.set_alpha(.2)
+        ax[n].patch.set_alpha(.4)
 
 
     # Attempt to forecast data
@@ -131,10 +131,10 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
         for n,col in enumerate(data.columns[1:]):
             fit_data = fit(data['time'], data[col], t)
             scale = .1*max(data[col] - min(data[col]))
-            ax[n].fill_between(t, fit_data - scale*(t[0] - t), fit_data + scale*(t[0] - t),
+            ax[n].fill_between(t, fit_data - scale*(t[0] - t - 1), fit_data + scale*(t[0] - t - 1),
                                facecolor='r',
                                alpha=.3)
-            ax[n].plot(t, fit_data, 'r--')
+#            ax[n].plot(t, fit_data, 'r--')
 
     fig.align_ylabels()
     fig.patch.set_alpha(0.)
