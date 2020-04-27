@@ -63,12 +63,12 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
 
     # Plotting pressure
     ax[1].plot(data['time'], data['pressure'], **plot_kwargs)
-    ax[1].set_ylabel("Pressure (atm)", fontsize=14, **text_kwargs)
+    ax[1].set_ylabel("Pressure (Pa)", fontsize=14, **text_kwargs)
     ax[1].yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.2f}'))
 
     # Plotting wind speed
     ax[2].plot(data['time'], data['windspeed'], **plot_kwargs)
-    ax[2].set_ylabel("Wind speed (mph)", fontsize=14, **text_kwargs)
+    ax[2].set_ylabel("Wind speed (m/s)", fontsize=14, **text_kwargs)
     ax[2].yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.2f}'))
 
     # Setting time ticks and labelling x-axis
@@ -134,7 +134,6 @@ def stack_plot(data, forecast=False, depth=.3, save=False):
             ax[n].fill_between(t, fit_data - scale*(t[0] - t - 1), fit_data + scale*(t[0] - t - 1),
                                facecolor='r',
                                alpha=.3)
-#            ax[n].plot(t, fit_data, 'r--')
 
     fig.align_ylabels()
     fig.patch.set_alpha(0.)
