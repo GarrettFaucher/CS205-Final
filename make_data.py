@@ -53,32 +53,32 @@ def gather_data(choice):
                                        'windcount': rose_windcount,
                                        'winddirection':rose_winddirection})
 
-    old_line_data = pd.read_csv('line.csv').round(3)
-    old_rose_data = pd.read_csv('rose.csv').round(3)
+    old_line_data = pd.read_csv('/users/t/s/tsheboy/www-root/CS205-Final/line.csv').round(3)
+    old_rose_data = pd.read_csv('/users/t/s/tsheboy/www-root/CS205-Final/rose.csv').round(3)
 
     # Sorting data and dropping dupes for usage
     join_line_data = pd.concat([new_line_data, old_line_data]).drop_duplicates(subset=['time']).round(3).sort_values(by=['time']).reset_index(drop=True)
     join_rose_data = pd.concat([new_rose_data, old_rose_data]).sort_values(by=['sol', 'solHour']).reset_index(drop=True).drop_duplicates(subset=['sol','solHour']).reset_index(drop=True)
 
     # Storing as csv for plot generation and historical data
-    join_line_data.to_csv(r'line.csv', index = False)
-    join_rose_data.to_csv(r'rose.csv', index = False)
+    join_line_data.to_csv(r'/users/t/s/tsheboy/www-root/CS205-Final/line.csv', index = False)
+    join_rose_data.to_csv(r'/users/t/s/tsheboy/www-root/CS205-Final/rose.csv', index = False)
 
     # Store current season for website purposes
     season = str(nasa_data[str(line_time[0])]['Season'])
-    seasonFile = open("season.txt", "w")
+    seasonFile = open("/users/t/s/tsheboy/www-root/CS205-Final/season.txt", "w")
     seasonFile.write(season[0].upper() + season[1:])
     seasonFile.close()
 
     # Store todays date for website purposes
     date = datetime.datetime.today()
-    timeFile = open("time.txt", "w")
+    timeFile = open("/users/t/s/tsheboy/www-root/CS205-Final/time.txt", "w")
     timeFile.write(str(date)[0:10] + " at " + str(date)[11:16])
     timeFile.close()
 
     # Store latest sol for website purposes
     sol = str(str(line_time[6]))
-    solFile = open("sol.txt", "w")
+    solFile = open("/users/t/s/tsheboy/www-root/CS205-Final/sol.txt", "w")
     solFile.write(sol)
     solFile.close()
 

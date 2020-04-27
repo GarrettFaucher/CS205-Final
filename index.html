@@ -5,7 +5,7 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="style.css">
-        <title>Mars' Weather</title>
+        <title>Mars Weather</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="automation.js"></script>
@@ -13,7 +13,7 @@
     <body>
     <div style="background-image">
 
-        <h1>Mars' Weather</h1>
+        <h1>Mars's Weather</h1>
 
     <figure class="rightside">
     <img class="marsRo" alt="Mars Rover." width="712" height="406" src="insight.jpg">
@@ -24,19 +24,12 @@
         <p>
             Data for the Mars Weather website was gathered from NASA’s “InSight: Mars Weather Service API.”
             The Insight rover takes continuous weather measurements of the Martian atmosphere in Elysium Planitia,
-            a large plain near Mars’s equator. The API provides daily changes in weather in Elysium Planitia
-            and hourly changes of winddirection and wind sample count. Below are some metrics gathered based on the
-            data collected from the API.
+            a large plain near Mars’s equator.
         </p>
 
-
-
-
-        <div class="grid-container1">
-          <div class="grid-item1"><p>Data Last Updated: <?php include('time.txt'); ?><p></div>
-          <div class="grid-item1"><p>Current Season On Mars: <?php include('season.txt'); ?></p></div>
-          <div class="grid-item1"><p>Current Sol: <?php include('sol.txt'); ?></p></div>
-        </div>
+        <p>Data Last Updated: <?php include('time.txt'); ?><p>
+        <p>Current Season On Mars: <?php include('season.txt'); ?></p>
+        <p>Current Sol: <?php include('sol.txt'); ?></p>
 
         <article id="wind">
             <h2> Wind Rose Plots</h2>
@@ -61,11 +54,11 @@
 
 
         <h2>About the Team</h2>
-        <div class="grid-container2">
-          <div class="grid-item2"><p>Garrett Faucher, a junior Computer Science major and Astronomy minor. He likes to look at stars and bike.</p></div>
-          <div class="grid-item2"><p>Eliot Heinrich, a senior physics and computer science major. He is a ballroom and swing dancer. </p></div>
-          <div class="grid-item2"><p>Thomas Sheboy, a junior Computer Science major and Mathematics minor. He likes to play guitar.</p></div>
-          <div class="grid-item2"><p>Stanhope Nwosu, a senior Computer Science major and Statistic minor. They like to play the trumpet and enjoys beaches.</p></div>
+        <div class="grid-container">
+          <div class="grid-item"><p>Garrett Faucher, a junior Computer Science major and Astronomy minor. He likes to look at stars and bike.</p></div>
+          <div class="grid-item"><p>Eliot Heinrich, a senior physics and computer science major. He is a ballroom and swing dancer. </p></div>
+          <div class="grid-item"><p>Thomas Sheboy, a junior Computer Science major and Mathematics minor. He likes to play guitar.</p></div>
+          <div class="grid-item"><p>Stanhope Nwosu, a senior Computer Science major and Statistic minor. They like to play the trumpet and enjoys beaches.</p></div>
         </div>
         <p>
             In this project, we wanted to inform clients and others of Mars' weather.
