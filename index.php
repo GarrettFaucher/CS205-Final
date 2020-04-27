@@ -5,7 +5,7 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="style.css">
-        <title>Mars's Weather</title>
+        <title>Mars' Weather</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="automation.js"></script>
@@ -13,7 +13,7 @@
     <body>
     <div style="background-image">
 
-        <h1>Mars's Weather</h1>
+        <h1>Mars' Weather</h1>
 
     <figure class="rightside">
     <img class="marsRo" alt="Mars Rover." width="712" height="406" src="insight.jpg">
